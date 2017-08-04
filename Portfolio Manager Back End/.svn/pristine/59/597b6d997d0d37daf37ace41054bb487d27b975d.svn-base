@@ -1,0 +1,109 @@
+package com.curry.wk.controller;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.curry.wk.commons.ReturnData;
+import com.curry.wk.entities.User;
+import com.curry.wk.service.UserService;
+
+/** 
+* @author Curry
+* @date Apr 1, 2017
+* @version 0.1
+*/
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+public class UserController {
+	
+	@SuppressWarnings("unused")
+	private Logger logger = LoggerFactory.getLogger(UserController.class);
+
+	@Autowired
+	private UserService userService;
+	private User user;
+	
+	@PostMapping(value = "/login")
+	public ReturnData login(String username, String password){
+		User loginUser = userService.login(username, password);
+		if (loginUser == null) {
+			return new ReturnData(0, "User is not exist!", null);
+		}
+		this.setUser(loginUser);
+		return new ReturnData(1, "Login success!", this.user);
+	}
+
+	@GetMapping(value = "/users")
+	public List<User> getAllUser(){
+		return userService.find();
+	}
+
+	@PostMapping(value = "/users")
+	public ReturnData add(User user){
+		User newUser = userService.add(user);
+		if (newUser == null){
+			return new ReturnData(0, "update user fail!", null);
+		}
+		this.setUser(newUser);
+		return new ReturnData(1, "update user success!", this.user);
+	}
+
+	@GetMapping(value = "/users/{id}")
+	public ReturnData getById(@PathVariable Integer id){
+		User queryUser = userService.findOne(id);
+		if (queryUser == null){
+			return new ReturnData(0, "update user fail!", null);
+		}
+		return new ReturnData(1, "update user success!", queryUser);
+	}
+
+	@GetMapping(value = "/users/search/{name}")
+	public ReturnData getByName(@PathVariable String name){
+		User queryUser = userService.findOne(name);
+		if (queryUser == null){
+			return new ReturnData(0, "update user fail!", null);
+		}
+		return new ReturnData(1, "update user success!", queryUser);
+	}
+
+	@PutMapping(value = "/users/{id}")
+	public ReturnData update(User user) throws Exception{
+		User updateUser = userService.update(user);
+		if (updateUser == null){
+			return new ReturnData(0, "update user fail!", null);
+		}
+		this.setUser(updateUser);
+		return new ReturnData(1, "update user success!", this.user);
+	}
+	
+	@DeleteMapping(value = "/users/{id}")
+	public ReturnData delete(@PathVariable int id){
+		userService.delete(id);
+		return new ReturnData(1, "delete user success!", null);
+	}
+	
+	@GetMapping(value = "/getUser")
+	public ReturnData getUser(){
+		return new ReturnData(1, "get user success.", this.user);
+	}
+	
+	@GetMapping(value = "/logout")
+	public ReturnData logout(){
+		this.setUser(null);
+		return new ReturnData(1, "logout success!", null);
+	}
+	
+	private void setUser(User user){
+		this.user = user;
+	}
+}

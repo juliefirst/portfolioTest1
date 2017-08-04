@@ -1,0 +1,129 @@
+@CHARSET "UTF-8";
+/* game_room */
+.game_room{
+	color: #fff;
+}
+.game_room input{
+	background: rgba(155,155,155,0.5);
+	-moz-opacity:0.50; /*支持 FireFox 浏览器*/
+	color: #fff;
+}
+.game_room .chat{
+	height: 440px;
+}
+.game_room .chat .left{
+	color: #fff;
+	background: rgba(155,155,155,0.5);
+	-moz-opacity:0.50; /*支持 FireFox 浏览器*/
+	margin-left: 40px;
+	float: left;
+	width: 400px;
+	height: 410px;;
+	margin-top: 10px;
+}
+.game_room .chat .left li{
+	background: rgba(155,155,155,0.5);
+	-moz-opacity:0.50; /*支持 FireFox 浏览器*/
+	margin-bottom: 10px;
+}
+.game_room .chat .middle, .right{
+	background: rgba(155,155,155,0.5);
+	-moz-opacity:0.50; /*支持 FireFox 浏览器*/
+	float: left;
+	width: 500px;
+	height: 410px;
+	margin-top: 10px;
+	margin-left: 15px;
+}
+.game_room .chat .middle .content{
+	border: 1px solid red;
+	border-radius: 5px;
+	height: 290px;
+}
+.game_room .chat .middle .input{
+	margin-top: 20px;	
+}
+.game_room .chat .middle .input .text_field{
+	float: left;
+	width: 370px;
+}
+.game_room .chat .middle .input .btn_field{
+	float: right;
+	width: 90px;
+}
+.game_room .chat .right{
+	background: rgba(155,155,155,0.5);
+	-moz-opacity:0.50; /*支持 FireFox 浏览器*/
+	float: left;
+	width: 500px;
+	height: 410px;
+	margin-top: 10px;
+	margin-left: 15px;
+}
+.game_room .chat .right .content{
+	border: 1px solid red;
+	border-radius: 5px;
+	height: 290px;
+}
+.game_room .chat .right .input{
+	margin-top: 20px;	
+}
+.game_room .chat .right .input .text_field{
+	float: left;
+	width: 370px;
+}
+.game_room .chat .right .input .btn_field{
+	float: right;
+	width: 90px;
+}
+.game_room .chat .other{  
+	padding: 20px;
+	float: left;
+	width: 370px;
+	height: 410px;
+	border-radius: 5px;
+	margin: 10px 15px;
+	background: rgba(155,155,155,0.5);
+	-moz-opacity:0.50; /*支持 FireFox 浏览器*/
+}
+.game_room .chat .other .info{
+	height: 200px;
+}
+.game_room .chat .other button{
+	margin-bottom: 20px;
+}
+.game_room  .player_list_up{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 225px;
+}
+.game_room  .player_list_down{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 225px;
+}
+.game_room  .player_list_item{
+	border: 1px solid red;
+	float: left;
+	margin: 0 41px;
+	width: 154px;
+}
+.game_room  .player_list_item .player_name{
+	border-top: 1px solid red;
+}
+.game_room  .player_list_item .player_name span{
+	padding: 0 5px;
+	border-right: 1px solid red;
+}
+.game_room  .player_list_item .player_name p{
+	display: inline-block;
+	margin: 0 0 0 35px;
+}
+.game_room  .player_list_item img{
+	width: 150px;
+	height: 200px;
+}
+.game_room  .player_list_item .player{
+	width: 150px;
+	height: 200px;
+}

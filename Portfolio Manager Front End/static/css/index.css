@@ -1,0 +1,122 @@
+/* index */
+.index{
+	background: rbga(255,255,255,0.9);
+	filter:alpha(opacity=90);  /* IE */
+	-moz-opacity:0.90; /* FireFox */
+	opacity:0.90;  /* Chrome, Opera, Safari */
+	margin: 50px 0 0;
+}
+.index aside{
+	width: 160px;
+	position: fixed;
+	top: 90px;
+	left: 400px;
+}
+.index .aside a{
+	width: 100%;
+}
+.index .new_room{
+	margin-top: 200px;
+}
+.index h1{
+	color: #fff;
+}
+.index .center{
+	margin: 10px auto;
+}
+
+.rank h2{
+		color: white;
+	}
+.rank{
+	margin-top: 70px;
+}
+.rank .rank_item{
+	height: 60px;
+}
+.rank .rank_item .one{
+	font-weight: bold;
+	color: red;
+}
+.rank .rank_item .two{
+	font-weight: bold;
+	color: blue;
+}
+.rank .rank_item .three{
+	font-weight: bold;
+}
+.rank .rank_item span{
+	font-size: 30px;
+	float: left;
+	margin-left: 10px;
+}
+.rank .rank_item a{
+	float: left;
+	margin-left: 30px;
+	font-size: 25px;
+	line-height: 40px;
+}
+
+/* new_room */
+.new_room .num{
+	margin-top: 5px;
+}
+.new_room .role_select{
+	margin-top: 50px;
+}
+.new_room .role_select .role_select_item{
+	display: inline-block;
+	margin: 10px 15px;
+}
+.new_room .role_select .role_select_item img{
+	float: left;
+	width: 80px;
+	height: 80px;
+}
+.new_room .role_select .role_select_item .num_select{
+	margin-left: 15px;
+	float: left;
+}
+.new_room .role_select .role_select_item .num_select p{
+	margin-top: 10px;
+}
+.new_room .role_select .role_select_item .num_select select{
+	width: 60px;
+}
+
+/* room_item */
+.room_item .left img{
+	float: left;
+	width: 80px;
+	height: 80px;
+	margin: 0 10px;
+}
+.room_item .left .info{
+	float: left;
+}
+.room_item .left .info h3{
+	margin: 5px 0;
+}
+.room_item .left .info p{
+	margin: 0;
+}
+.room_item .right{
+	float: right;
+	margin-right: 20px;
+}
+.room_item .right .number{
+	display: block;
+}
+.room_item .right .time{
+	display: block;
+	margin-top: 30px;
+}
+
+.room_item h3{
+	display: inline-block;
+}
+
+.room_item .id{
+	margin-left: 10px;
+	margin-top: -20px;
+}

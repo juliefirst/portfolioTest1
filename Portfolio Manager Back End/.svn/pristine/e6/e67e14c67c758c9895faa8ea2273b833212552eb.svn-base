@@ -1,0 +1,19 @@
+package com.curry.wk.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.curry.wk.entities.Players;
+
+/** 
+* @author Curry
+* @date Apr 11, 2017
+* @version 0.1
+*/
+public interface PlayersRepository extends JpaRepository<Players, Integer> {
+
+	Long deleteByRoomIdAndUserId(int roomId, int userId);
+	
+	List<Players> findByRoomId(int roomId);
+}

@@ -1,0 +1,29 @@
+function loginAction(){
+	var username = $('#username').val();
+	var password = $('#password').val();
+	$.ajax({
+		url: "/login",
+		type: "post",
+		data: {"username": username, "password": password},
+		async: false,
+		success: onSuccess
+	});
+}
+
+function onSuccess(data, status){
+	if (data.code == 1) {
+		$("#route").click();
+	}else {
+		alert(data.message);
+	}
+}
+
+//绑定beforeunload事件
+// $(window).bind('beforeunload',function(){
+// 	alert('您输入的内容尚未保存，确定离开此页面吗？');
+// });
+// $(window).unload(function(){
+//     alert("获取到了页面要关闭的事件了！"); 
+// }); 
+//解除绑定，一般放在提交触发事件中
+// $(window).unbind('beforeunload');

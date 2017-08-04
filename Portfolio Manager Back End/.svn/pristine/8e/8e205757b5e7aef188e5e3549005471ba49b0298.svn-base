@@ -1,0 +1,114 @@
+package com.curry.wk.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
+
+import com.curry.wk.commons.ClientSocket;
+import com.curry.wk.commons.ServerSocket;
+import com.curry.wk.entities.Room;
+import com.curry.wk.entities.User;
+import com.curry.wk.service.GameService;
+import com.curry.wk.service.RoomService;
+import com.curry.wk.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+/** 
+* @author Curry
+* @date Apr 7, 2017
+* @version 0.1
+*/
+@Controller
+public class SocketController {
+
+	@Autowired
+	private RoomService roomService;
+	@Autowired
+	private GameService gameService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private SimpMessagingTemplate simpMessagingTemplate;
+	
+	private static final ObjectMapper mapper = new ObjectMapper();
+	
+	@MessageMapping("/joinRoom")//@MessageMapping和@RequestMapping功能类似，用于设置URL映射地址，浏览器向服务器发起请求，需要通过该地址
+    @SendTo("/topic/joinRoom")//如果服务器接受到了消息，就会对订阅了@SendTo括号中的地址传送消息
+    public ServerSocket playersChange(ClientSocket clientSocket) throws Exception {
+		int roomId = clientSocket.getDestination();
+		Room room = roomService.getRoom(roomId);
+		if (room == null){
+	        return new ServerSocket(null, null, "room is not exist!");
+		}
+		List<User> list = roomService.getPlayers(roomId);
+		User source = userService.findOne(clientSocket.getSource());
+        return new ServerSocket(source, list, "refresh room");
+    }
+	
+	@MessageMapping("/chatRoom")
+    @SendTo("/topic/chatRoom")
+    public ServerSocket chat(ClientSocket clientSocket) throws Exception {
+		int roomId = clientSocket.getDestination();
+		Room room = roomService.getRoom(roomId);
+		if (room == null){
+	        return new ServerSocket(null, null, "room is not exist!");
+		}
+		List<User> list = roomService.getPlayers(roomId);
+		User source = userService.findOne(clientSocket.getSource());
+        return new ServerSocket(source, list, clientSocket.getData());
+    }
+	
+	@MessageMapping("/ready")
+    @SendTo("/topic/ready")
+    public ServerSocket ready(ClientSocket clientSocket) throws Exception {
+		
+		int roomId = clientSocket.getDestination();
+		Room room = roomService.getRoom(roomId);
+		if (room == null){
+	        return new ServerSocket(null, null, "room is not exist!");
+		}
+		List<User> list = roomService.getPlayers(roomId);
+		User source = userService.findOne(clientSocket.getSource());
+		if (roomService.isReady(clientSocket.getDestination())){
+			Map<String, String> roles = gameService.buildRole("");
+			String data = mapper.writeValueAsString(roles);
+			ServerSocket serverSocket = new ServerSocket(new User(0), list, data, "allocate role");
+			String json = mapper.writeValueAsString(serverSocket);
+			simpMessagingTemplate.convertAndSend("/topic/role", json);
+		}
+        return new ServerSocket(source, list, clientSocket.getData(), clientSocket.getMessage());
+    }
+	
+	@MessageMapping("/say")
+    @SendTo("/topic/say")
+    public ServerSocket say(ClientSocket clientSocket) throws Exception {
+		int roomId = clientSocket.getDestination();
+		Room room = roomService.getRoom(roomId);
+		if (room == null){
+	        return new ServerSocket(null, null, "room is not exist!");
+		}
+		List<User> list = roomService.getPlayers(roomId);
+		User source = userService.findOne(clientSocket.getSource());
+        return new ServerSocket(source, list, clientSocket.getData());
+    }
+	
+	@MessageMapping("/role")
+    @SendTo("/topic/role")
+    public ServerSocket role(ClientSocket clientSocket) throws Exception {
+		int roomId = 1010;
+		Room room = roomService.getRoom(roomId);
+		if (room == null){
+	        return new ServerSocket(null, null, "room is not exist!");
+		}
+		List<User> list = roomService.getPlayers(roomId);
+		User source = userService.findOne(clientSocket.getSource());
+        return new ServerSocket(source, list, clientSocket.getData());
+    }
+	
+	
+}

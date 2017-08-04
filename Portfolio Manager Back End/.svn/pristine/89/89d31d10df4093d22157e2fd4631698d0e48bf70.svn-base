@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Rank</title>
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/index.css" />
+	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top header" role="navigation">
+<div class="container">
+	<a href="/index" class="navbar-brand"><img class="logo" alt="Logo" src="../img/logo.png" /></a>
+	<ul class="nav navbar-nav room_select">
+		<li><a href="#"><span class="glyphicon glyphicon-user"> 标准房</span></a></li>
+		<li><a href="#"><span class="glyphicon glyphicon-tower"> 娱乐房</span></a></li>
+		<li><a href="#"><span class="glyphicon glyphicon-flag"> 赛事房</span></a></li>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<li>
+			<form action="" class="navbar-form navbar-left search" role="search">
+				<span class="glyphicon glyphicon-search">
+				<input type="text" class="form-control" placeholder="房间ID/房间名" />
+				</span>
+			</form>
+		</li>
+		<li class="news dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span> 消息 <span class="badge">4</span></a>
+			<ul class="dropdown-menu news_list" role="menu">
+				<li><a href="#"><img src="../img//wolf.jpg" alt="好友" /> Wind <span class="badge">2</span></a></li>
+				<li><a href="#"><img src="../img//wolf.jpg" alt="好友" /> Ally <span class="badge">1</span></a></li>
+				<li><a href="#"><img src="../img//wolf.jpg" alt="好友" /> Jack <span class="badge">1</span></a></li>
+			</ul>
+		</li>
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle user" data-toggle="dropdown"><img src="../img/head.jpg" /> JY峰 <span class="caret"></span></a>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#">个人资料</a></li>
+				<li><a href="#">胜负统计</a></li>
+				<li><a href="#">设置</a></li>
+				<li class="divider"></li>
+				<li><a href="#">帮助</a></li>
+				<li><a href="#">退出登录</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+</nav>
+<div class="rank">
+	<div class="container">
+		<h2 class="text-center">Rank</h2>
+		<div class="list-group">
+			<div class="list-group-item rank_item clearfix">
+				<span class="one">1</span>
+				<a href="#">玩家1</a>
+			</div>
+			<div class="list-group-item rank_item clearfix">
+				<span class="two">2</span>
+				<a href="#">玩家2</a>
+			</div>
+			<div class="list-group-item rank_item clearfix">
+				<span class="three">3</span>
+				<a href="#">玩家3</a>
+			</div>
+			<div class="rank_item clearfix list-group-item">
+				<span>z</span>
+				<a href="">玩家A</a>
+			</div>
+			<div class="rank_item clearfix list-group-item">
+				<span>z</span>
+				<a href="">玩家A</a>
+			</div>
+			<div class="rank_item clearfix list-group-item">
+				<span>z</span>
+				<a href="">玩家A</a>
+			</div>
+			<div class="rank_item clearfix list-group-item">
+				<span>z</span>
+				<a href="">玩家A</a>
+			</div>
+			<div class="rank_item clearfix list-group-item">
+				<span>z</span>
+				<a href="">玩家A</a>
+			</div>
+			<div class="rank_item clearfix list-group-item">
+				<span>z</span>
+				<a href="">玩家A</a>
+			</div>
+			<div class="rank_item clearfix list-group-item">
+				<span>z</span>
+				<a href="">玩家A</a>
+			</div>
+			<div class="rank_item clearfix list-group-item">
+				<span>z</span>
+				<a href="">玩家A</a>
+			</div>
+			<div class="rank_item clearfix list-group-item">
+				<span>z</span>
+				<a href="">玩家A</a>
+			</div>
+			<div class="rank_item clearfix list-group-item">
+				<span>z</span>
+				<a href="">玩家A</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="copyright">
+	<p>@copyright by Curry</p>
+	<p>粤府新函[2001]87号 粤网文[2014]0633-233号 网络视听许可证1904073号 增值电信业务经营许可证：粤B2-20090059 B2-20090028 违法和不良信息举报电话：0755-83767606</p>
+</div>
+</body>
+<script src="js/lib/jquery-3.2.0.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</html>

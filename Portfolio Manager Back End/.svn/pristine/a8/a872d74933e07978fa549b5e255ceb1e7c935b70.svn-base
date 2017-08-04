@@ -1,0 +1,50 @@
+package com.curry.wk.commons;
+
+import java.util.List;
+
+import com.curry.wk.entities.Room;
+
+/** 
+* @author Curry
+* @date Apr 10, 2017
+* @version 0.1
+*/
+
+public class PageData {
+
+	private List<Room> list;
+	private int pageTotal;
+	private int page;
+	
+	public PageData(List<Room> list, int pageTotal, int page) {
+		super();
+		this.list = list;
+		this.pageTotal = pageTotal;
+		this.page = page;
+	}
+
+	public List<Room> getList() {
+		return list;
+	}
+
+	public void setList(List<Room> list) {
+		this.list = list;
+	}
+
+	public int getPageTotal() {
+		return pageTotal;
+	}
+
+	public void setPageTotal(int pageTotal) {
+		this.pageTotal = pageTotal;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+	
+}

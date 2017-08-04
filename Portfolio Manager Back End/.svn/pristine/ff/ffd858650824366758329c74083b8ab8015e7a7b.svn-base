@@ -1,0 +1,17 @@
+var user;
+
+function getUser(){
+	$.ajax({
+		url: '/getUser',
+		type: 'get',
+		async: true,
+		success: function(data, status){
+			if (data.code == 1){
+				user = data.data;
+				$('#userName').html(data.data.name);
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}

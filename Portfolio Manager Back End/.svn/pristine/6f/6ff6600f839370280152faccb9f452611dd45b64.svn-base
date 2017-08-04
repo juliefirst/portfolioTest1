@@ -1,0 +1,85 @@
+package com.curry.wk.commons;
+
+import java.io.IOException;
+import java.util.List;
+
+import com.curry.wk.entities.User;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+/** 
+* @author Curry
+* @date Apr 11, 2017
+* @version 0.1
+*/
+public class ServerSocket {
+	
+	private static final ObjectMapper mapper = new ObjectMapper();
+	
+	private int type;
+	private User source;
+	private List<User> destination;
+	private String data;
+	private String message;
+	
+	public ServerSocket(){
+		super();
+	}
+	
+	public ServerSocket(User source, List<User> destination, String data) {
+		super();
+		this.source = source;
+		this.destination = destination;
+		this.data = data;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public User getSource() {
+		return source;
+	}
+
+	public void setSource(User source) {
+		this.source = source;
+	}
+
+	public List<User> getDestination() {
+		return destination;
+	}
+
+	public void setDestination(List<User> destination) {
+		this.destination = destination;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public static String toJson(ServerSocket socketData) throws JsonProcessingException{
+		return mapper.writeValueAsString(socketData);
+	}
+	
+	public static ServerSocket toSocketData(String json) throws JsonParseException, JsonMappingException, IOException{
+		return mapper.readValue(json,ServerSocket.class);
+	}
+}

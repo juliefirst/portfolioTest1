@@ -1,0 +1,87 @@
+const SERVER_POINT = '/wk';
+const JOIN_ROOM = '/topic/joinRoom';
+const CHAT_ROOM = '/topic/chatRoom';
+const EMPTY_HEADER = {};
+
+var stompClient = null;
+
+function connect() {
+    var socket = new SockJS(SERVER_POINT);
+    stompClient = Stomp.over(socket);
+    stompClient.connect(EMPTY_HEADER, connectCallback, errorCallback);
+}
+
+function disconnectSocket() {
+    stompClient.disconnect(onDisconnect);
+};
+
+var errorCallback = function(error) {
+    console.log('socket connect fail!');
+    console.log(error.headers.message);
+};
+
+var connectCallback = function(frame) {
+    console.log('socket connect success!');
+    stompClient.subscribe(JOIN_ROOM, joinOnMessage);
+    stompClient.subscribe(CHAT_ROOM, chatOnMessage);
+};
+
+var joinOnMessage = function(response){
+    var users = JSON.parse(response.body).destination;
+    users.forEach(function(item, index) {
+        if (item.id == user.id) {
+            getPlayers();
+        }
+    });
+};
+
+var chatOnMessage = function(response){
+    var users = JSON.parse(response.body).destination;
+    var message = JSON.parse(response.body).data;
+    users.forEach(function(item, index) {
+        if (item.id == user.id) {
+            getPlayers();
+        	chat("leftBubble",item.portrait,message);
+        }
+    });
+};
+
+var leaveRoom = function() {
+    $.ajax({
+        url: '/rooms/1010/leave',
+        type: 'get',
+        data: {
+            "userId": user.id
+        },
+        async: false,
+        success: function(data, status){
+            if (data.code == 1){
+                console.log('user leave.');
+                sendChangeMessage(1010);
+            }else{
+                console.log('user leave fail.');
+                console(data.message);
+            }
+        }
+    });
+};
+
+function sendChangeMessage(roomId){
+    console.log('send join message');
+    stompClient.send("/joinRoom", {}, JSON.stringify({
+     'source': user.id,
+     'destination': roomId,
+     'type': 1,
+     'data': "join room"
+    }));
+}
+
+function sendChat(roomId){
+	var chatInfo = $('.chat-info').val();
+    stompClient.send("/chatRoom", {}, JSON.stringify({
+        'source': user.id,
+        'destination': roomId,
+        'type': 2,
+        'data': chatInfo
+       }));
+}

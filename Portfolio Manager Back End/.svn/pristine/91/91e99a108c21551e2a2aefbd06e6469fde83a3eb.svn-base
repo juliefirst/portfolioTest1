@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/index.css" />
+	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top header" role="navigation">
+	<div class="container">
+		<a href="/index" class="navbar-brand"><img class="logo" alt="Logo" src="../img/logo.png" /></a>
+		<ul class="nav navbar-nav room_select">
+			<li><a href="#"><span class="glyphicon glyphicon-user" onclick="findRoomByType(1)"> 标准房</span></a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-tower" onclick="findRoomByType(2)"> 娱乐房</span></a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-flag" onclick="findRoomByType(3)"> 赛事房</span></a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<div class="navbar-form navbar-left search" role="search">
+					<span class="glyphicon glyphicon-search">
+					<input id="search" type="text" class="form-control" placeholder="房间ID/房间名" />
+					</span>
+				</div>
+			</li>
+			<li class="news dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span> 消息 <span class="badge">4</span></a>
+				<ul class="dropdown-menu news_list" role="menu">
+					<li><a href="#"><img src="../img//wolf.jpg" alt="好友" /> Wind <span class="badge">2</span></a></li>
+					<li><a href="#"><img src="../img//wolf.jpg" alt="好友" /> Ally <span class="badge">1</span></a></li>
+					<li><a href="#"><img src="../img//wolf.jpg" alt="好友" /> Jack <span class="badge">1</span></a></li>
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle user" data-toggle="dropdown"><img src="../img/head.jpg" /> <span id="userName">JY峰</span> <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">个人资料</a></li>
+					<li><a href="#">胜负统计</a></li>
+					<li><a href="#">设置</a></li>
+					<li class="divider"></li>
+					<li><a href="#">帮助</a></li>
+					<li><a href="#" onclick="toLogin()">退出登录</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	</nav>
+	<div class="sixty"></div>
+<div class="index">
+	<div class="container">
+		<aside class="aside">
+			<a class="btn btn-primary" data-toggle="modal" data-target=".new_room" id="new_room_btn">新建房间</a>
+			<div class="twenty"></div>
+			<div class="list-group">
+				<a href="#" class="list-group-item" onclick="allRooms"><span class="glyphicon glyphicon-link"></span> <span class="h4">综合房</span></a>
+				<a href="#" class="list-group-item" onclick="audioRooms"><span class="glyphicon glyphicon-volume-up"></span> <span class="h4">语音房</span></a>
+				<a href="#" class="list-group-item" onclick="textRooms"><span class="glyphicon glyphicon-pencil"></span> <span class="h4">文字房</span></a>
+				<a href="/rank" class="list-group-item"><span class="glyphicon glyphicon-list"></span> <span class="h4">排行榜</span></a>
+			</div>
+		</aside>
+		<div class="col-md-10 col-md-offset-2">
+			<h1 class="text-center">房间列表</h1>
+			<div id="room_list" class="list-group">
+			</div>
+		</div>
+		<nav aria-label="Page navigation center">
+		  <ul class="pagination pagination-lg">
+		  </ul>
+		</nav>
+	</div>
+</div>
+<div class="modal fade new_room" tabindex="-1" role="dialog" aria-labelldby="MyModal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">新建房间</h4>
+			</div>
+			<div class="modal-body">
+				<form action="" class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="room_name" class="col-md-2 control-label">房间名称</label>
+						<div class="col-md-7">
+							<input type="text" class="form-control" id="room_name" placeholder="请输入房间名称" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="room_password" class="col-md-2 control-label">房间密码</label>
+						<div class="col-md-7">
+							<input type="password" class="form-control" id="room_password" placeholder="请输入房间密码" />
+							<span class="help-block">若密码为空，则表示房间不设置密码</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">房间人数</label>
+						<div class="col-md-2">
+							<select class="form-control" id="room_total">
+								<option>9</option>
+								<option>10</option>
+								<option>11</option>
+								<option>12</option>
+								<option>13</option>
+								<option>14</option>
+								<option>15</option>
+								<option>16</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">房间类型</label>
+						<div class="col-md-3">
+							<select class="form-control" id="room_type">
+								<option>标准房</option>
+								<option>娱乐房</option>
+								<option>赛事房</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">发言时间(s)</label>
+						<div class="col-md-3">
+							<select class="form-control" id="room_speakTime">
+								<option>60</option>
+								<option>90</option>
+								<option>120</option>
+							</select>
+						</div>
+					</div>
+				</form>
+				<div class="role_select">
+					<div class="role_select_item clearfix">
+						<img alt="狼人" src="../img/villager.jpg" />
+						<div class="num_select">
+							<p>村民</p>
+							<select class="form-control" id="villager">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+					<div class="role_select_item clearfix">
+						<img alt="狼人" src="../img/prophet.jpg" />
+						<div class="num_select">
+							<p>预言家</p>
+							<select class="form-control" id="prophet">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+					<div class="role_select_item clearfix">
+						<img alt="狼人" src="../img/witch.jpg" />
+						<div class="num_select">
+							<p>女巫</p>
+							<select class="form-control" id="witch">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+					<div class="role_select_item clearfix">
+						<img alt="狼人" src="../img/hunter.jpg" />
+						<div class="num_select">
+							<p>猎人</p>
+							<select class="form-control" id="hunter">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+					<div class="role_select_item clearfix">
+						<img alt="狼人" src="../img/idiot.jpg" />
+						<div class="num_select">
+							<p>白痴</p>
+							<select class="form-control" id="idiot">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+					<div class="role_select_item clearfix">
+						<img alt="狼人" src="../img/guard.jpg" />
+						<div class="num_select">
+							<p>守卫</p>
+							<select class="form-control" id="guard">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+					<div class="role_select_item clearfix">
+						<img alt="狼人" src="../img/wolf.jpg" />
+						<div class="num_select">
+							<p>狼人</p>
+							<select class="form-control" id="wolf">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+					<div class="role_select_item clearfix">
+						<img alt="狼人" src="../img/wolfKing.jpg" />
+						<div class="num_select">
+							<p>白狼王</p>
+							<select class="form-control" id="wolfKing">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">取消</button>
+				<button class="btn btn-primary" data-dismiss="modal" onclick="createRoom()">创建</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="copyright">
+	<p>@copyright by Curry</p>
+	<p>粤府新函[2001]87号 粤网文[2014]0633-233号 网络视听许可证1904073号 增值电信业务经营许可证：粤B2-20090059 B2-20090028 违法和不良信息举报电话：0755-83767606</p>
+</div>
+<form class="hide" action="/" method="get">
+	<input type="submit" id="toLogin"></input>
+</form>
+<form class="hide" action="/room" method="get">
+	<input type="submit" id="toRoom"></input>
+</form>
+</body>
+<script src="/js/lib/sockjs.min.js"></script>
+<script src="/js/lib/stomp.min.js"></script>
+<script src="/js/lib/jquery-3.2.0.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/socket.js"></script>
+<script src="/js/index.js"></script>
+</html> 

@@ -1,0 +1,17 @@
+package com.curry.wk.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.curry.wk.entities.User;
+
+/** 
+* @author Curry
+* @date Apr 2, 2017
+* @version 0.1
+*/
+public interface UserRepository extends JpaRepository<User, Integer>{
+
+	User findByName(String name);
+	
+	User findByUsernameAndPassword(String username, String password);
+}

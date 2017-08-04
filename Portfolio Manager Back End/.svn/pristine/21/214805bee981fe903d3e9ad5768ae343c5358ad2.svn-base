@@ -1,0 +1,131 @@
+package com.curry.wk.controller;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.curry.wk.commons.ReturnData;
+import com.curry.wk.entities.Room;
+import com.curry.wk.entities.User;
+import com.curry.wk.service.RoomService;
+
+/** 
+* @author Curry
+* @date Apr 4, 2017
+* @version 0.1
+*/
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+public class RoomController {
+	
+	@SuppressWarnings("unused")
+	private static final Logger logger = LoggerFactory.getLogger(RoomController.class);
+	
+	@Autowired
+	private RoomService roomService;
+
+	@GetMapping(value = "/rooms")
+	public ReturnData getAllRooms(){
+		List<Room> list = roomService.getAllRooms();
+		if (list != null && list.size() != 0){
+			return new ReturnData(1, "get room list success!", list);
+		}
+		return new ReturnData(0, "there are no room.", null);
+	}
+	
+	@GetMapping(value = "/rooms/type")
+	public ReturnData getRoomsByType(String type){
+		List<Room> list = roomService.getRoomsByType(type);
+		if (list != null && list.size() != 0){
+			return new ReturnData(1, "get room list success!", list);
+		}
+		return new ReturnData(0, "there are no room.", null);
+	}
+	
+	@PostMapping(value = "/rooms/{id}")
+	public ReturnData getRoomsById(@PathVariable int id){
+		Room room = roomService.getRoom(id);
+		if (room == null) {
+			return new ReturnData(0, "search room by id fail!", null);
+		}
+		return new ReturnData(1, "search room by id success!", room);
+	}
+	
+	@GetMapping(value = "/rooms/search/{name}")
+	public ReturnData getRoomsByName(@PathVariable String name){
+		Room room = roomService.getRoom(name);
+		if (room == null) {
+			return new ReturnData(0, "search room by id fail!", null);
+		}
+		return new ReturnData(1, "search room by id success!", room);
+	}
+	
+	@PostMapping(value = "/rooms")
+	public ReturnData newRoom(Room room){
+		Room newRoom = roomService.newRoom(room);
+		if (newRoom != null){
+			return new ReturnData(1, "new room success!", newRoom);
+		}
+		return new ReturnData(0, "new room fail.", null);
+	}
+	
+	@DeleteMapping(value = "/rooms/{id}")
+	public ReturnData delRoom(@PathVariable int id){
+		roomService.delRoom(id);
+		return new ReturnData(1, "delete room success!", null);
+	}
+
+	@GetMapping(value = "/rooms/{id}/join")
+	public ReturnData join(@PathVariable int id, int userId){
+		if (roomService.join(id, userId)) {
+			return new ReturnData(1, "join room success!", null);
+		}
+		return new ReturnData(0, "join room fail!", null);
+	}
+
+	@GetMapping(value = "/rooms/{id}/leave")
+	public ReturnData leave(@PathVariable int id, int userId){
+		System.out.println("roomId: " + id + " userId: " + userId);
+		if (roomService.leave(id, userId)) {
+			return new ReturnData(1, "leave room success!", null);
+		}
+		return new ReturnData(0, "leave room fail!", null);
+	}
+	
+	@GetMapping(value = "/rooms/{id}/players")
+	public ReturnData getPlayers(@PathVariable int id){
+		List<User> list = roomService.getPlayers(id);
+		if (list != null && !list.isEmpty()){
+			return new ReturnData(1, "get players success!", list);
+		}
+		return new ReturnData(0, "get players fail!", null);
+	}
+
+	@GetMapping(value = "/rooms/{id}/ready")
+	public ReturnData ready(@PathVariable int id, int userId){
+		if (roomService.ready(id, userId)) {
+			if (roomService.isReady(id)){
+				return new ReturnData(2, "All Ready!", null);
+			}
+			return new ReturnData(1, "ready success!", null);
+		}
+		return new ReturnData(0, "ready fail!", null);
+	}
+
+	@GetMapping(value = "/rooms/{id}/unready")
+	public ReturnData unReady(@PathVariable int id, int userId){
+		if (roomService.unReady(id, userId)) {
+			return new ReturnData(1, "unready success!", null);
+		}
+		return new ReturnData(0, "unready fail!", null);
+	}
+	
+}

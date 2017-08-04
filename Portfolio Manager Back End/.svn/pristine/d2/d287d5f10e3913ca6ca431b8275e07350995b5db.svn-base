@@ -1,0 +1,181 @@
+var room = null;
+var stompClient = null;
+var locate;
+var sayTime;
+var role;
+var ready = document.getElementById('ready');
+var unready = document.getElementById('unready');
+
+window.onbeforeunload = leaveRoom;
+unready.disabled = true;
+
+$(document).ready(function(){
+	connect();
+	getUser();
+	getRoom();
+	getPlayers();
+	chat("leftBubble","../img/curry.jpg","text length test");
+})
+
+function getRoom(){
+	var url = window.location.pathname;
+	$.ajax({
+		url: url,
+		type: 'post',
+		async: true,
+		success: function(data, status){
+			if (data.code == 1){
+				room = data.data;
+				sayTime = 20;
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}
+
+function getPlayers(){
+	var url = window.location.pathname + '/players';
+	$.ajax({
+		url: url,
+		type: 'get',
+		async: true,
+		success: function(data, status){
+			if (data.code == 1){
+				refreshPlayers(data.data);
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}
+
+function refreshPlayers(players){
+	resetPlayers();
+	players.forEach(function(item, index) {
+		var location = index + 1;
+		var imgId = "#player" + location + "_img";
+		var nameId = "#player" + location + "_name";
+		var name = item.name;
+		var img = item.portrait;
+		var timeId = "player" + location + "_time";
+//		var timeCount = "<span id = '" + timeId + "' style='display: inline-block; margin-top: 20px; margin-left: 20px; color: red; font-size:100px;'>60</span>"
+		var background = 'url(' + img + ')';
+//		$(imgId).html(timeCount);
+		$(imgId).css("background-image", background);
+		$(imgId).css("background-size", "150px 200px");
+		$(nameId).html(name);
+		if (item.name == user.name) {
+			locate = location;
+		}
+	});
+}
+
+function resetPlayers() {
+	for (var i = 0; i < 16; i++) {
+		var imgId = "#player" + i + "_img";
+		var nameId = "#player" + i + "_name";
+		$(imgId).css("background-image", "");
+		$(nameId).html("");
+	}
+}
+
+function readyAction(){
+	var url = window.location.pathname + '/ready';
+	$.ajax({
+		url: url,
+		type: 'get',
+		async: true,
+		data: {
+			"userId": user.id
+		},
+		success: function(data, status){
+			if (data.code == 2){
+				console.log('All Ready!');
+				ready.disabled = true;
+				unready.disabled = false;
+				sendReadyMessage(1010,locate,"ready");
+				setReady(locate);
+			}else if (data.code == 1){
+				ready.disabled = true;
+				unready.disabled = false;
+				console.log('you are ready!');
+				sendReadyMessage(1010,locate,"ready");
+				setReady(locate);
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}
+
+function unreadyAction(){
+	var url = window.location.pathname + '/unready';
+	$.ajax({
+		url: url,
+		type: 'get',
+		async: true,
+		data: {
+			"userId": user.id
+		},
+		success: function(data, status){
+			if (data.code == 1){
+				ready.disabled = false;
+				unready.disabled = true;
+				console.log('you are unready!');
+				sendReadyMessage(1010,locate,"");
+				setUnReady(locate);
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}
+
+function setReady(location){
+	var imgId = "#player" + location + "_img";
+	var ready = "<span style='display: inline-block; margin-top: 10px; margin-left: 110px; color: white; font-size:20px;'>ready</span>"
+	$(imgId).html(ready);
+}
+
+function setUnReady(location){
+	var imgId = "#player" + location + "_img";
+	$(imgId).html("");
+}
+
+function say(){
+	sendSay(1010, locate);
+	sayAction(locate);
+}
+
+function sayAction(position){
+	var forTime = window.setInterval(function(){
+		var timeId = "#player" + position + "_img";
+		var timeCount = "<span id = '" + timeId + "' style='display: inline-block; margin-top: 20px; margin-left: 20px; color: red; font-size:100px;'>" + sayTime + "</span>"
+		$(timeId).html(timeCount);
+		sayTime--;
+	}, 1000);
+	
+	window.setTimeout(function(){
+		window.clearInterval(forTime);
+		var timeId = "#player" + position + "_img";
+		$(timeId).html("");
+		sayTime = 20;
+		console.log('position: ' + position);
+		console.log('locate: ' + locate);
+		if (position + 1 == locate) {
+			console.log('next.');
+			say();
+		}
+	}, (sayTime + 2) * 1000);
+}
+
+function sendMessage(){
+    sendChat(1010);
+    chat("rightBubble");
+    $('.chat-info').val('');
+}
+
+function allocateRole(role){
+	this.role = role;
+}

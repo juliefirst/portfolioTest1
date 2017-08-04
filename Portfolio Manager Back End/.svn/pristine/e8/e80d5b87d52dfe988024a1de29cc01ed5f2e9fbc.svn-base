@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Game</title>
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/room.css" />
+	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/global_chat.css" />
+    <link rel="stylesheet" href="/css/styles_chat.css" />
+</head>
+<body>
+<div class="game_room">
+	<div class="player_list_up">
+		<div class="player_list_item">
+			<div class="player" id="player1_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">一</span><p class="text-center" id="player1_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player2_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">二</span><p class="text-center" id="player2_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player3_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">三</span><p class="text-center" id="player3_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player4_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">四</span><p class="text-center" id="player4_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player5_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">五</span><p class="text-center" id="player5_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player6_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">六</span><p class="text-center" id="player6_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player7_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">七</span><p class="text-center" id="player7_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player"  id="player8_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">八</span><p class="text-center" id="player8_name"></p>
+			</div>
+		</div>
+	</div>
+	<div class="chat clearfix">
+		<div class="left panel panel-default">
+			<div class="panel-heading">游戏信息</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item"><strong>板子</strong>：狼人x3 白狼王x1 女巫x1 预言家x1 猎人x1 守卫x1</li>
+					<li class="list-group-item"><strong>规则</strong>：狼人杀游戏的人游戏更倾向于竞技，狼人杀游戏则更加欢乐，角色更丰富。游戏分为两大阵营，狼人和好人;好人方以投票为手段投死狼人获取最后胜利，狼人阵营隐匿于好人中间，靠夜晚杀人及投票消灭好人方成员为获胜手段。</li>
+					<li class="list-group-item"><strong>游戏时间</strong>：第一天白天</li>
+					<li class="list-group-item"><strong>当前人数</strong>：10/12</li>
+				</ul>
+			</div>
+		</div>
+		<div class="middle panel panel-default">
+			<div class="panel-heading">团队频道</div>
+			<div class="panel-body">
+				<div class="content chat-box">
+    				<div class="bubbleDiv"></div>
+				</div>
+				<div class="input clearfix chat-edit">
+					<input type="text" class="form-control text_field chat-info" />
+					<button class="btn btn-primary btn_field send-btn">发送</button>
+				</div>
+			</div>
+		</div>
+		<div class="right panel panel-default">
+			<div class="panel-heading">公共频道</div>
+			<div class="panel-body">
+				<div class="content">
+				</div>
+				<form class="input clearfix">
+					<input type="text" class="form-control text_field" />
+					<input type="submit" class="btn btn-primary btn_field" value="发送" />
+				</form>
+			</div>
+		</div>
+		<div class="other">
+			<div class="info">
+				<p><strong>你的状态：</strong>游戏中</p>
+				<p><strong>你的角色：</strong>狼人</p>
+				<p><strong>你的胜利条件：</strong>杀死所有神民或杀死所以普通村民</p>
+			</div>
+			<div class="btn_list">
+				<button class="btn btn-primary btn-lg btn-block">准 备</button>
+				<button class="btn btn-primary btn-lg btn-block">语 音 调 试</button>
+				<button class="btn btn-primary btn-lg btn-block">帮 助</button>
+			</div>
+		</div>
+	</div>
+	<div class="player_list_down">
+		<div class="player_list_item">
+			<div class="player" id="player9_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">九</span><p class="text-center" id="player9_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player10_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十</span><p class="text-center" id="player10_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player11_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十一</span><p class="text-center" id="player11_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player12_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十二</span><p class="text-center" id="player12_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player13_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十三</span><p class="text-center" id="player13_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player14_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十四</span><p class="text-center" id="player14_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player15_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十五</span><p class="text-center" id="player15_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player16_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十六</span><p class="text-center" id="player16_name"></p>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script src="/js/lib/sockjs.min.js"></script>
+<script src="/js/lib/stomp.min.js"></script>
+<script src="/js/lib/jquery-3.2.0.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/chat.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/socket.js"></script>
+<script src="/js/room.js"></script>
+</html>

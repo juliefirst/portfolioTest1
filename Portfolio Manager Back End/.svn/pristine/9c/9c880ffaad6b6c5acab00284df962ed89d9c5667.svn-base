@@ -1,0 +1,144 @@
+package com.curry.wk.service;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.curry.wk.entities.Game;
+import com.curry.wk.entities.Players;
+import com.curry.wk.entities.Room;
+import com.curry.wk.entities.User;
+import com.curry.wk.repository.GameRepository;
+import com.curry.wk.repository.PlayersRepository;
+import com.curry.wk.repository.RoomRepository;
+import com.curry.wk.repository.UserRepository;
+
+/** 
+* @author Curry
+* @date Apr 4, 2017
+* @version 0.1
+*/
+@Service
+public class RoomService {
+	
+	@SuppressWarnings("unused")
+	private static final Logger logger = LoggerFactory.getLogger(RoomService.class);
+
+	@Autowired
+	private RoomRepository roomRepository;
+	@Autowired
+	private PlayersRepository playersRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private GameRepository gameRepository;
+
+	public List<Room> getAllRooms(){
+		List<Room> list = roomRepository.findAll();
+		Collections.sort(list, (room1, room2) -> (room2.getId() - room1.getId()));
+		return list;
+	}
+
+	public List<Room> getRoomsByType(String type){
+		return roomRepository.findByTypeOrderByIdDesc(type);
+	}
+	
+	public Room getRoom(int id){
+		return roomRepository.findOne(id);
+	}
+	
+	public Room getRoom(String name){
+		return roomRepository.findByName(name);
+	}
+	
+	public Room newRoom(Room room){
+		return roomRepository.save(room);
+	}
+	
+	public void delRoom(int id){
+		roomRepository.delete(id);
+	}
+	
+	public List<User> getPlayers(int roomId){
+		List<Players> players = playersRepository.findByRoomId(roomId);
+		if (players.isEmpty()){
+			return null;
+		}
+		List<User> list = new ArrayList<>();
+		for (Players player : players) {
+			User user = userRepository.findOne(player.getUserId());
+			list.add(user);
+		}
+		return list;
+	}
+	
+	@Transactional
+	public synchronized boolean join(int roomId, int userId){
+		Room room = this.getRoom(roomId);
+		if (room == null){
+			return false;
+		}
+		if (room.getPresent() < room.getTotal()){
+			Players players = new Players(roomId, userId);
+			playersRepository.save(players);
+			int persent = room.getPresent();
+			room.setPresent(persent + 1);
+			roomRepository.save(room);
+		}else{
+			return false;
+		}
+		return true;
+	}
+
+	@Transactional
+	public synchronized boolean leave(int roomId, int userId){
+		Room room = this.getRoom(roomId);
+		if (room == null){
+			return false;
+		}
+		int persent = room.getPresent();
+		room.setPresent(persent - 1);
+		roomRepository.save(room);
+		playersRepository.deleteByRoomIdAndUserId(roomId, userId);
+		return true;
+	}
+	
+	public boolean ready(int roomId, int userId) {
+		Game game = gameRepository.findByRoomId(roomId);
+		if (game == null){
+			System.out.println("game is null");
+			return false;
+		}
+		int ready = game.getReady();
+		game.setReady(ready + 1);
+		gameRepository.save(game);
+		return true;
+	}
+	
+	public boolean unReady(int roomId, int userId) {
+		Game game = gameRepository.findByRoomId(roomId);
+		if (game == null){
+			return false;
+		}
+		int ready = game.getReady();
+		game.setReady(ready - 1);
+		gameRepository.save(game);
+		return true;
+	}
+	
+	public boolean isReady(int roomId){
+		Game game = gameRepository.findByRoomId(roomId);
+		int ready = game.getReady();
+		int total = game.getTotal();
+		if (ready < total) {
+			return false;
+		}
+		return true;
+	}
+}

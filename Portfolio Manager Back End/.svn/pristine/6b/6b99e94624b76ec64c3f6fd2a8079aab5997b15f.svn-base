@@ -1,0 +1,43 @@
+package com.curry.wk.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/** 
+* @author Curry
+* @date Apr 5, 2017
+* @version 0.1
+*/
+@Controller
+public class PathController {
+
+	@GetMapping(value = "/socket")
+	public String socket(){
+		return "socket";
+	}
+
+	@GetMapping(value = "/")
+	public String login(){
+		return "login_new";
+	}
+
+	@GetMapping(value = "/index")
+	public String index(){
+		return "index";
+	}
+
+	@GetMapping(value = "/rank")
+	public String rank(){
+		return "rank";
+	}
+
+	@GetMapping(value = "/rooms/{id}")
+	public String room(){
+		return "room";
+	}
+
+	@GetMapping(value = "/video")
+	public String video(){
+		return "video";
+	}
+}

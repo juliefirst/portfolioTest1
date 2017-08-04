@@ -1,0 +1,88 @@
+package com.curry.wk.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+/** 
+* @author Curry
+* @date Apr 16, 2017
+* @version 0.1
+*/
+@Service
+public class GameService {
+	
+	@SuppressWarnings("unused")
+	private static final Logger logger = LoggerFactory.getLogger(RoomService.class);
+
+//	@Autowired
+//	private RoomRepository roomRepository;
+//	@Autowired
+//	private PlayersRepository playersRepository;
+//	@Autowired
+//	private UserRepository userRepository;
+//	@Autowired
+//	private GameRepository gameRepository;
+
+	public List<String> buildRole(){
+		List<Integer> list = new ArrayList<>();
+		while (list.size() < 12){
+			int number = (int)(12.0*Math.random()) + 1;
+			if (!list.contains(number)){
+				System.out.println("add number: " + number);
+				list.add(number);
+			}
+		}
+		List<String> result = new ArrayList<>();
+		for (int index : list){
+			String role = mapRole(index);
+			result.add(role);
+		}
+		return result;
+	}
+	
+	public List<String> buildRole(String test){
+		List<String> result = new ArrayList<>();
+		result.add("村民");
+		result.add("狼人");
+		result.add("预言家");
+//		result.add("猎人");
+//		result.add("白痴");
+//		result.add("女巫");
+		return result;
+	}
+	
+	private String mapRole(int index){
+		switch (index) {
+		case 1:
+			return "村民";
+		case 2:
+			return "村民";
+		case 3:
+			return "村民";
+		case 4:
+			return "村民";
+		case 5:
+			return "狼人";
+		case 6:
+			return "狼人";
+		case 7:
+			return "狼人";
+		case 8:
+			return "狼人";
+		case 9:
+			return "预言家";
+		case 10:
+			return "女巫";
+		case 11:
+			return "猎人";
+		case 12:
+			return "白痴";
+		default:
+			return "";
+		}
+	}
+}

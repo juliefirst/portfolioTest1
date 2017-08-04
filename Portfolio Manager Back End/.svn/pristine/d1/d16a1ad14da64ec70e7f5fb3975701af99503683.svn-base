@@ -1,0 +1,58 @@
+package com.curry.wk.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+/** 
+* @author Curry
+* @date Apr 11, 2017
+* @version 0.1
+*/
+@Entity
+public class Players implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue
+	private int id;
+	private int roomId;
+	private int userId;
+
+	public Players() {
+		super();
+	}
+	
+	public Players(int roomId, int userId) {
+		super();
+		this.roomId = roomId;
+		this.userId = userId;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+}

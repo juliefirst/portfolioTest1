@@ -1,0 +1,21 @@
+package com.curry.wk.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.curry.wk.entities.Room;
+
+/** 
+* @author Curry
+* @date Apr 4, 2017
+* @version 0.1
+*/
+public interface RoomRepository extends JpaRepository<Room, Integer>{
+	
+	Room findByName(String name);
+	
+	List<Room> findAll();
+	
+	List<Room> findByTypeOrderByIdDesc(String type);
+}

@@ -1,0 +1,15 @@
+package com.curry.wk.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.curry.wk.entities.Game;
+
+/** 
+* @author Curry
+* @date Apr 16, 2017
+* @version 0.1
+*/
+public interface GameRepository extends JpaRepository<Game, Integer> {
+
+	Game findByRoomId(int roomId);
+}

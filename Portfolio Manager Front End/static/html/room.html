@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Game</title>
+    <meta charset="UTF-8" />
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/room.css" />
+	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/lib/global_chat.css" />
+    <link rel="stylesheet" href="/css/lib/styles_chat.css" />
+</head>
+<body>
+<div class="game_room">
+	<div class="player_list_up">
+		<div class="player_list_item">
+			<div class="player" id="player1_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">一</span><p class="text-center" id="player1_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player2_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">二</span><p class="text-center" id="player2_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player3_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">三</span><p class="text-center" id="player3_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player4_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">四</span><p class="text-center" id="player4_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player5_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">五</span><p class="text-center" id="player5_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player6_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">六</span><p class="text-center" id="player6_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player7_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">七</span><p class="text-center" id="player7_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player"  id="player8_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">八</span><p class="text-center" id="player8_name"></p>
+			</div>
+		</div>
+	</div>
+	<div class="chat clearfix">
+		<div class="left panel panel-default">
+			<div class="panel-heading">游戏信息</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item"><strong>板子</strong>：村民x4 狼人x4 女巫x1 预言家x1 猎人x1 白痴x1</li>
+					<li class="list-group-item"><strong>规则</strong>：狼人杀游戏的人游戏更倾向于竞技，狼人杀游戏则更加欢乐，角色更丰富。游戏分为两大阵营，狼人和好人;好人方以投票为手段投死狼人获取最后胜利，狼人阵营隐匿于好人中间，靠夜晚杀人及投票消灭好人方成员为获胜手段。</li>
+					<li class="list-group-item"><strong>游戏时间</strong>：第一天白天</li>
+					<li class="list-group-item"><strong>当前人数</strong>：10/12</li>
+				</ul>
+			</div>
+		</div>
+		<div class="middle panel panel-default">
+			<div class="panel-heading">团队频道</div>
+			<div class="panel-body">
+				<div class="content chat-box">
+    				<div class="bubbleDiv"></div>
+				</div>
+				<div class="input clearfix chat-edit">
+					<input type="text" class="form-control text_field chat-info" />
+					<button class="btn btn-primary btn_field send-btn" id="send_btn" onclick="sendMessage()">发送</button>
+				</div>
+			</div>
+		</div>
+		<div class="right panel panel-default">
+			<!-- <div class="panel-heading">公共频道</div>
+			<div class="panel-body">
+				<div class="content">
+				</div>
+				<div class="input clearfix">
+					<input type="text" class="form-control text_field" />
+					<button class="btn btn-primary btn_field">发送</button>
+				</div>
+			</div> -->
+			<video id="video" autoplay></video>
+		</div>
+		<div class="other">
+			<div class="info">
+				<p><strong>你的状态：</strong><span id="status">准备开始游戏</span></p>
+				<p><strong>你的角色：</strong><span id="roleStatus">待定</span></p>
+				<p><strong>你的座位号：</strong><span id="locateStatus">待定</span></p>
+			</div>
+			<div class="btn_list">
+				<button class="btn btn-primary btn-lg btn-block" id="ready" onclick="readyAction()">准 备</button>
+				<button class="btn btn-primary btn-lg btn-block" id="unready" onclick="unreadyAction()">取消准 备</button>
+			</div>
+		</div>
+	</div>
+	<div class="player_list_down">
+		<div class="player_list_item">
+			<div class="player" id="player9_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">九</span><p class="text-center" id="player9_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player10_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十</span><p class="text-center" id="player10_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player11_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十一</span><p class="text-center" id="player11_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player12_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十二</span><p class="text-center" id="player12_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player13_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十三</span><p class="text-center" id="player13_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player14_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十四</span><p class="text-center" id="player14_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player15_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十五</span><p class="text-center" id="player15_name"></p>
+			</div>
+		</div>
+		<div class="player_list_item">
+			<div class="player" id="player16_img">
+			</div>
+			<div class="player_name">
+				<span class="h4">十六</span><p class="text-center" id="player16_name"></p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Start Game -->
+<div class="modal fade startGameMode" id="gameStartMode" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+      <span class="h1 center title">游戏即将开始...</span>
+      <span class="time" id="gameStart"></span>
+    </div>
+  </div>
+</div>
+<!-- game end -->
+<div class="modal fade endMode" id="endMode" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="forty"></div>
+      	<h1 class="text-center">游戏结束，<span class="h1 red" id="roles"></span>胜利！</h1>
+      	<h3>01号：<span class="h3 red" id="location_1"></span></h3>
+      	<h3>02号：<span class="h3 red" id="location_2"></span></h3>
+      	<h3>03号：<span class="h3 red" id="location_3"></span></h3>
+      	<h3>04号：<span class="h3 red" id="location_4"></span></h3>
+      	<h3>05号：<span class="h3 red" id="location_5"></span></h3>
+      	<h3>06号：<span class="h3 red" id="location_6"></span></h3>
+        <div class="text-center">
+	        <button class="btn btn-lg btn-primary" onclick="closeEndMode()">确定</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Game Role -->
+<div class="modal fade RoleMode" id="RoleMode" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="forty"></div>
+      <h1 class="text-center title" id="roleTitle"></h1>
+      <div class="text-center role" id="role"></div>
+    </div>
+  </div>
+</div>
+<!-- Night -->
+<div class="modal fade nightMode" id="nightMode" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+      <h1 class="text-center night">黑夜中...</h1>
+    </div>
+  </div>
+</div>
+<!-- Day -->
+<div class="modal fade dayMode" id="dayMode" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+      <h1 class="text-center day">天亮了...</h1>
+    </div>
+  </div>
+</div>
+<!-- police -->
+<!-- <div class="modal fade poisonMode" id="policeMode" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="forty"></div>
+      	<h1 class="text-center">是否要上警？</h1>
+      	<h1 class="text-center" id="policeTime"></h1>
+        <div class="text-center">
+	        <button class="btn btn-primary" onclick="police()">是</button>
+	        <button class="btn btn-primary" onclick="closePoliceMode()">否</button>
+        </div>
+    </div>
+  </div>
+</div> -->
+<!-- witch save -->
+<div class="modal fade witchMode" id="witchMode" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="forty"></div>
+      <h1 class="text-center">今晚被<span class="h1" id="dead"></span>号被杀害，是否使用解药？</h1>
+      <h1 class="text-center" id="witchSaveTime"></h1>
+      <div class="text-center">
+	      <button class="btn btn-primary" onclick="save()">是</button>
+	      <button class="btn btn-primary" onclick="poisonMode()">否</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- witch poison -->
+<div class="modal fade poisonMode" id="poisonMode" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="forty"></div>
+      	<h1 class="text-center">是否使用毒药？</h1>
+      	<h1 class="text-center" id="witchPoisonTime"></h1>
+        <div class="text-center">
+	        <button class="btn btn-primary" onclick="witchPoison()">是</button>
+	        <button class="btn btn-primary" onclick="closePoisonMode()">否</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Wolf -->
+<div class="modal fade chooseMode" id="chooseMode" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+      <h1 class="text-center" id="chooseTitle"></h1>
+      <h1 class="text-center" id="chooseTime"></h1>
+      <h3 class="text-center" id="appendMessage"></h3>
+      <div class="button_list">
+	      <button id="locate_01" class="btn btn-primary">01</button>
+	      <button id="locate_02" class="btn btn-primary">02</button>
+	      <button id="locate_03" class="btn btn-primary">03</button>
+	      <button id="locate_04" class="btn btn-primary">04</button>
+	      <button id="locate_05" class="btn btn-primary">05</button>
+	      <button id="locate_06" class="btn btn-primary">06</button>
+	      <button id="locate_07" class="btn btn-primary">07</button>
+	      <button id="locate_08" class="btn btn-primary">08</button>
+      </div>
+      <div class="button_list">
+	      <button id="locate_09" class="btn btn-primary">09</button>
+	      <button id="locate_10" class="btn btn-primary">10</button>
+	      <button id="locate_11" class="btn btn-primary">11</button>
+	      <button id="locate_12" class="btn btn-primary">12</button>
+	      <button id="locate_13" class="btn btn-primary">13</button>
+	      <button id="locate_14" class="btn btn-primary">14</button>
+	      <button id="locate_15" class="btn btn-primary">15</button>
+	      <button id="locate_16" class="btn btn-primary">16</button>
+      </div>
+    </div>
+  </div>
+</div>
+<form class="hide" action="/" method="get">
+	<input type="submit" id="toLogin"></input>
+</form>
+<script src="/js/lib/sockjs.min.js"></script>
+<script src="/js/lib/stomp.min.js"></script>
+<script src="/js/lib/jquery-3.2.0.min.js"></script>
+<script src="/js/lib/jquerySession.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/lib/chat.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/socket.js"></script>
+<script src="/js/room.js"></script>
+</body>
+</html>

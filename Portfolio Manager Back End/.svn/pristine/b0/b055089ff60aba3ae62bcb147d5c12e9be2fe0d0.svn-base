@@ -1,0 +1,28 @@
+<!DOCTYPE HTML> 
+<html>
+<head>
+	<meta charset="utf-8"></meta>
+	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/css/login.css" />
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="login">
+	<div class="container">
+		<div class="login_box">
+			<h2 class="text-center">Sign in</h2>
+			<input id = "username" type="text" class="form-control" placeholder="Username" required="true" autofocus="true" />
+			<input id = "password" type="password" class="form-control" placeholder="Password" required="true" />
+			<button class="btn btn-lg btn-primary btn-block" onclick="loginAction()">Login In</button>
+			<a href="#">sign up</a>
+		</div>
+	</div>
+</div>
+<form action="/index">
+	<input id="route" class="hide" type="submit"></input>
+</form>
+</body>
+<script src="js/lib/jquery-3.2.0.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/login.js"></script>
+</html>

@@ -1,0 +1,403 @@
+package com.curry.wk.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+/** 
+* @author Curry
+* @date Apr 1, 2017
+* @version 0.1
+*/
+@Entity
+public class User implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue
+	private int id;
+	private String name;
+	private String username;
+	private String password;
+	private String gender;
+	private String portrait = "";
+	private String introduction = "";
+	private String phone = "";
+	private String email = "";
+	private String city = "";
+	private int winning = 0;
+	private int losing = 0;
+	private int rate = 0;
+	private int villagerWinning = 0;
+	private int villagerLosing = 0;
+	private int villagerRate = 0;
+	private int prophetWinning = 0;
+	private int prophetLosing = 0;
+	private int prophetRate = 0;
+	private int witchWinning = 0;
+	private int witchLosing = 0;
+	private int witchRate = 0;
+	private int hunterWinning = 0;
+	private int hunterLosing = 0;
+	private int hunterRate = 0;
+	private int idiotWinning = 0;
+	private int idiotLosing = 0;
+	private int idiotRate = 0;
+	private int wolfWinning = 0;
+	private int wolfLosing = 0;
+	private int wolfRate = 0;
+	private int score = 0;
+	private String level = "";
+
+	public User() {
+		super();
+	}
+	
+	public User(int id) {
+		super();
+		this.id = id;
+	}
+
+	public User(String name, String username, String password) {
+		super();
+		this.name = name;
+		this.username = username;
+		this.password = password;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getPortrait() {
+		return portrait;
+	}
+
+	public void setPortrait(String portrait) {
+		this.portrait = portrait;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getWinning() {
+		return winning;
+	}
+
+	public void setWinning(int winning) {
+		this.winning = winning;
+		if (this.winning + this.losing != 0) {
+			this.setRate(this.winning / this.winning + this.losing);
+		}
+	}
+
+	public int getLosing() {
+		return losing;
+	}
+
+	public void setLosing(int losing) {
+		this.losing = losing;
+		if (this.winning + this.losing != 0) {
+			this.setRate(this.winning / this.winning + this.losing);
+		}
+	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+
+	public int getVillagerWinning() {
+		return villagerWinning;
+	}
+
+	public void setVillagerWinning(int villagerWinning) {
+		this.villagerWinning = villagerWinning;
+		if (this.villagerWinning + this.villagerLosing != 0) {
+			this.setVillagerRate(this.villagerWinning / this.villagerWinning + this.villagerLosing);
+		}
+	}
+
+	public int getVillagerLosing() {
+		return villagerLosing;
+	}
+
+	public void setVillagerLosing(int villagerLosing) {
+		this.villagerLosing = villagerLosing;
+		if (this.villagerWinning + this.villagerLosing != 0) {
+			this.setVillagerRate(this.villagerWinning / this.villagerWinning + this.villagerLosing);
+		}
+	}
+
+	public int getVillagerRate() {
+		return villagerRate;
+	}
+
+	public void setVillagerRate(int villagerRate) {
+		this.villagerRate = villagerRate;
+	}
+
+	public int getProphetWinning() {
+		return prophetWinning;
+	}
+
+	public void setProphetWinning(int prophetWinning) {
+		this.prophetWinning = prophetWinning;
+		if (this.prophetWinning + this.prophetLosing != 0) {
+			this.setProphetRate(this.prophetWinning / this.prophetWinning + this.prophetLosing);
+		}
+	}
+
+	public int getProphetLosing() {
+		return prophetLosing;
+	}
+
+	public void setProphetLosing(int prophetLosing) {
+		this.prophetLosing = prophetLosing;
+		if (this.prophetWinning + this.prophetLosing != 0) {
+			this.setProphetRate(this.prophetWinning / this.prophetWinning + this.prophetLosing);
+		}
+	}
+
+	public int getProphetRate() {
+		return prophetRate;
+	}
+
+	public void setProphetRate(int prophetRate) {
+		this.prophetRate = prophetRate;
+	}
+
+	public int getWitchWinning() {
+		return witchWinning;
+	}
+
+	public void setWitchWinning(int witchWinning) {
+		this.witchWinning = witchWinning;
+		if (this.witchWinning + this.witchLosing != 0) {
+			this.setWitchRate(this.witchWinning / this.witchWinning + this.witchLosing);
+		}
+	}
+
+	public int getWitchLosing() {
+		return witchLosing;
+	}
+
+	public void setWitchLosing(int witchLosing) {
+		this.witchLosing = witchLosing;
+		if (this.witchWinning + this.witchLosing != 0) {
+			this.setWitchRate(this.witchWinning / this.witchWinning + this.witchLosing);
+		}
+	}
+
+	public int getWitchRate() {
+		return witchRate;
+	}
+
+	public void setWitchRate(int witchRate) {
+		this.witchRate = witchRate;
+	}
+
+	public int getHunterWinning() {
+		return hunterWinning;
+	}
+
+	public void setHunterWinning(int hunterWinning) {
+		this.hunterWinning = hunterWinning;
+		if (this.hunterWinning + this.hunterLosing != 0) {
+			this.setHunterRate(this.hunterWinning / this.hunterWinning + this.hunterLosing);
+		}
+	}
+
+	public int getHunterLosing() {
+		return hunterLosing;
+	}
+
+	public void setHunterLosing(int hunterLosing) {
+		this.hunterLosing = hunterLosing;
+		if (this.hunterWinning + this.hunterLosing != 0) {
+			this.setHunterRate(this.hunterWinning / this.hunterWinning + this.hunterLosing);
+		}
+	}
+
+	public int getHunterRate() {
+		return hunterRate;
+	}
+
+	public void setHunterRate(int hunterRate) {
+		this.hunterRate = hunterRate;
+	}
+
+	public int getIdiotWinning() {
+		return idiotWinning;
+	}
+
+	public void setIdiotWinning(int idiotWinning) {
+		this.idiotWinning = idiotWinning;
+		if (this.idiotWinning + this.idiotLosing != 0) {
+			this.setIdiotRate(this.idiotWinning / this.idiotWinning + this.idiotLosing);
+		}
+	}
+
+	public int getIdiotLosing() {
+		return idiotLosing;
+	}
+
+	public void setIdiotLosing(int idiotLosing) {
+		this.idiotLosing = idiotLosing;
+		if (this.idiotWinning + this.idiotLosing != 0) {
+			this.setIdiotRate(this.idiotWinning / this.idiotWinning + this.idiotLosing);
+		}
+	}
+
+	public int getIdiotRate() {
+		return idiotRate;
+	}
+
+	public void setIdiotRate(int idiotRate) {
+		this.idiotRate = idiotRate;
+	}
+
+	public int getWolfWinning() {
+		return wolfWinning;
+	}
+
+	public void setWolfWinning(int wolfWinning) {
+		this.wolfWinning = wolfWinning;
+		if (this.wolfWinning + this.wolfLosing != 0) {
+			this.setWolfRate(this.wolfWinning / this.wolfWinning + this.wolfLosing);
+		}
+	}
+
+	public int getWolfLosing() {
+		return wolfLosing;
+	}
+
+	public void setWolfLosing(int wolfLosing) {
+		this.wolfLosing = wolfLosing;
+		if (this.wolfWinning + this.wolfLosing != 0) {
+			this.setWolfRate(this.wolfWinning / this.wolfWinning + this.wolfLosing);
+		}
+	}
+
+	public int getWolfRate() {
+		return wolfRate;
+	}
+
+	public void setWolfRate(int wolfRate) {
+		this.wolfRate = wolfRate;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + "]";
+	}
+}

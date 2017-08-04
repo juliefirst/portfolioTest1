@@ -1,0 +1,246 @@
+// var page;
+// var pageTotal;
+
+$(document).ready(function(){
+	connect();
+	getRooms();
+	getUser();
+});
+
+function getRooms(){
+	$.ajax({
+		url: "/rooms",
+		type: "get",
+		async: true,
+		success: function(data, status){
+			if (data.code == 1){
+				resetList(data.data);
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}
+
+function buildRoomItemString(data){
+	return "<a href='/rooms/"+ data.id + "' class='list-group-item' onclick='join()'>" +
+					"<div class='room_item row'>" +
+						"<div class='left'>" +
+							"<img src='" + data.img + "' alt='icon' />" +
+							"<div class='info'>" +
+								"<h3>" + data.name + "</h3><span class='id'>" + data.id + "</span>" +
+								"<p class='owner'>" + data.user + "</p>" +
+								"<div class='version'>" +
+									"<span class='glyphicon glyphicon-fire' data-toggle='tooltip' title='狼人'>x" + data.wolf + "</span>" +
+									"<span class='glyphicon glyphicon-user' data-toggle='tooltip' title='村民'>x" + data.villager + "</span>" +
+									"<span class='glyphicon glyphicon-eye-open' data-toggle='tooltip' title='预言家'>x" + data.prophet + "</span>" +
+									"<span class='glyphicon glyphicon-adjust' data-toggle='tooltip' title='女巫'>x" + data.witch + "</span>" +
+									"<span class='glyphicon glyphicon-screenshot' data-toggle='tooltip' title='猎人'>x" + data.hunter + "</span>" +
+									"<span class='glyphicon glyphicon-record' data-toggle='tooltip' title='白痴'>x" + data.idiot + "</span>" +
+								"</div>" +
+							"</div>" +
+						"</div>" +
+						"<div class='right'>" +
+							"<span class='number'>" + data.present + "/" + data.total + "</span>" +
+							"<span class='time'>time: " + data.speakTime + "</span>" +
+						"</div>" +
+					"</div>" +
+				"</a>'";
+}
+
+function appendRoom(data){
+	$('#room_list').append(buildRoomItemString(data));
+}
+
+function resetList(list){
+	$('#room_list').html("");
+	list.forEach(function(item, index) {
+		appendRoom(item);
+	});
+}
+
+function createRoom(){
+	var img;
+	var type = $('#room_type').val();
+	if (type == "赛事房") {
+		img = "../img/game.jpg";
+	}else if (type == "标准房") {
+		img = "../img/standard.png";
+	}else {
+		img = "../img/enter.jpg";
+	}
+	var userName = user.name;
+	var name = $('#room_name').val();
+	var password = $('#room_password').val();
+	var total = $('#room_total').val();
+	var speakTime = $('#room_speakTime').val();
+	var villager = $('#villager').val();
+	var prophet = $('#prophet').val();
+	var witch = $('#witch').val();
+	var hunter = $('#hunter').val();
+	var idiot = $('#idiot').val();
+	var guard = $('#guard').val();
+	var wolf = $('#wolf').val();
+	var wolfKing = $('#wolfKing').val();
+
+	$.ajax({
+		url: '/rooms',
+		type: 'post',
+		async: true,
+		data: {
+			"img": img,
+			"user": userName,
+			"name": name,
+			"type": type,
+			"password": password,
+			"total": total,
+			"speakTime": speakTime,
+			"villager": villager,
+			"prophet": prophet,
+			"witch": witch,
+			"hunter": hunter,
+			"idiot": idiot,
+			"guard": guard,
+			"wolf": wolf,
+			"wolfKing": wolfKing,
+			"present": 0,
+			"players": "["+ user.id +"]",
+			"audiences": ""
+		},
+		success: function(data,status){
+			if (data.code == 1){
+				getRooms();
+			}else{
+				alert('new room fail!');
+			}
+		}
+	});
+}
+
+function findRoomByType(param){
+	var type;
+	if (param == 1){
+		type = "标准房";
+	}else if (param == 2){
+		type = "娱乐房";
+	}else{
+		type = "赛事房";
+	}
+	$.ajax({
+		url: '/rooms/type/',
+		type: 'get',
+		data: {
+			"type": type
+		},
+		async: true,
+		success: function(data, status){
+			if (data.code == 1){
+				resetList(data.data);
+				// pageTotal = parseInt(data.data.pageTotal);
+				// page = parseInt(data.data.page);
+				// buildPageNav();
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}
+
+$('#search').keydown(function(event){
+	if (event.keyCode == 13) {
+		var input = $('#search').val();
+		if (!isNaN(input)){
+			searchById(input);
+		}else{
+			searchByName(input);
+		}
+	}
+});
+
+function searchById(input){
+	$.ajax({
+	url: '/rooms/' + input,
+	type: 'post',
+	async: true,
+	success: function(data, status){
+		if (data.code == 1) {
+			$('#room_list').html("");
+			appendRoom(data.data);
+		}else {
+			searchByName(input);
+		}
+	}
+	});
+}
+
+function searchByName(input){
+	$.ajax({
+	url: '/rooms/search/' + input,
+	type: 'get',
+	async: true,
+	success: function(data, status){
+		if (data.code == 1){
+			$('#room_list').html("");
+			appendRoom(data.data);
+		}else{
+			alert('search not found!');
+		}
+	}
+	});
+}
+
+function clickId(){
+	var content = $(this).html();
+	alert('content: [' + content + ']');
+}
+
+function join(){
+	var roomId = 1010;
+	var userId = user.id;
+	$.ajax({
+		url: '/rooms/' + roomId + '/join',
+		type: 'get',
+		data: {
+			"userId": userId
+		},
+		async: false,
+		success: function(data, status){
+			if (data.code == 1){
+				sendChangeMessage(roomId);
+				$('#toRoom').click();
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}
+
+function toLogin(){
+	$.ajax({
+		url: '/logout',
+		type: 'get',
+		async: true,
+		success: function(data, status){
+			if (data.code == 1){
+				$('#toLogin').click();
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}
+
+function toRoom(){
+	$.ajax({
+		url: '/room',
+		type: 'get',
+		async: true,
+		success: function(data, status){
+			if (data.code == 1){
+				$('#toRoom').click();
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}

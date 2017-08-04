@@ -1,0 +1,225 @@
+package com.curry.wk.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+/** 
+* @author Curry
+* @date Apr 4, 2017
+* @version 0.1
+*/
+@Entity
+public class Room implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue
+	private int id;
+	@Column(updatable = false)
+	private String img;
+	@Column(updatable = false)
+	private String user;
+	@Column(updatable = false)
+	private String name;
+	@Column(updatable = false)
+	private String type;
+	@Column(updatable = false)
+	private String password = "";
+	@Column(updatable = false)
+	private int total;
+	@Column(updatable = false)
+	private int speakTime = 60;
+	@Column(updatable = false)
+	private int villager = 0;
+	@Column(updatable = false)
+	private int prophet = 0;
+	@Column(updatable = false)
+	private int witch = 0;
+	@Column(updatable = false)
+	private int hunter = 0;
+	@Column(updatable = false)
+	private int idiot = 0;
+	@Column(updatable = false)
+	private int wolf = 0;
+	private int present = 0;
+
+	public Room(){
+		super();
+	}
+	
+	public Room(String img, String user, String name, String type, int total, int villager, int prophet,
+			int witch, int hunter, int idiot, int guard, int wolf, int wolfKing, int speakTime){
+		this("", img, user, name, type, total, villager, prophet, witch, hunter, idiot, wolf, speakTime);
+	}
+	
+	public Room(String password, String img, String user, String name, String type, int total, int villager, int prophet,
+			int witch, int hunter, int idiot, int wolf, int speakTime){
+		super();
+		this.password = password;
+		this.img = img;
+		this.user = user;
+		this.name = name;
+		this.type = type;
+		this.total = total;
+		this.speakTime = speakTime;
+		this.villager = villager;
+		this.prophet = prophet;
+		this.witch = witch;
+		this.hunter = hunter;
+		this.idiot = idiot;
+		this.wolf = wolf;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public int getSpeakTime() {
+		return speakTime;
+	}
+
+	public void setSpeakTime(int speakTime) {
+		this.speakTime = speakTime;
+	}
+
+	public int getPresent() {
+		return present;
+	}
+
+	public void setPresent(int present) {
+		this.present = present;
+	}
+
+	public int getVillager() {
+		return villager;
+	}
+
+	public void setVillager(int villager) {
+		this.villager = villager;
+	}
+
+	public int getProphet() {
+		return prophet;
+	}
+
+	public void setProphet(int prophet) {
+		this.prophet = prophet;
+	}
+
+	public int getWitch() {
+		return witch;
+	}
+
+	public void setWitch(int witch) {
+		this.witch = witch;
+	}
+
+	public int getHunter() {
+		return hunter;
+	}
+
+	public void setHunter(int hunter) {
+		this.hunter = hunter;
+	}
+
+	public int getIdiot() {
+		return idiot;
+	}
+
+	public void setIdiot(int idiot) {
+		this.idiot = idiot;
+	}
+
+	public int getWolf() {
+		return wolf;
+	}
+
+	public void setWolf(int wolf) {
+		this.wolf = wolf;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Room other = (Room) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Room [id=" + id + "]";
+	}
+	
+}

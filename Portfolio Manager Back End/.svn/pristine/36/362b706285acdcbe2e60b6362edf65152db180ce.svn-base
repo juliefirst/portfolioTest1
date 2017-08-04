@@ -1,0 +1,76 @@
+var room;
+var stompClient = null;
+
+window.onbeforeunload = leaveRoom;
+console.log('leave function done.');
+
+$(document).ready(function(){
+	connect();
+	getUser();
+	getRoom();
+	getPlayers();
+	
+	chat("leftBubble","../img/curry.jpg","测试内容长度");
+	$(".send-btn").click(function(){
+        //右侧 自己发 调用，只需填一个参数"rightBubble"
+        chat("rightBubble");
+        //清空输入框
+        $('.chat-info').val('');
+
+    });
+    $(".send-btn").click(sendChat(roomId));
+
+function getRoom(){
+	var url = window.location.pathname;
+	$.ajax({
+		url: url,
+		type: 'post',
+		async: true,
+		success: function(data, status){
+			if (data.code == 1){
+				room = data.data;
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}
+
+function getPlayers(){
+	var url = window.location.pathname + '/players';
+	$.ajax({
+		url: url,
+		type: 'get',
+		async: true,
+		success: function(data, status){
+			if (data.code == 1){
+				refreshPlayers(data.data);
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+}
+
+function refreshPlayers(players){
+	resetPlayers();
+	players.forEach(function(item, index) {
+		var location = index + 1;
+		var imgId = "#player" + location + "_img";
+		var nameId = "#player" + location + "_name";
+		var name = item.name;
+		var img = item.portrait;
+		var imgHtml = "<img src='" + img + "' alt='" + name + "' />";
+		$(imgId).html(imgHtml);
+		$(nameId).html(name);
+	});
+}
+
+function resetPlayers() {
+	for (var i = 0; i < 16; i++) {
+		var imgId = "#player" + i + "_img";
+		var nameId = "#player" + i + "_name";
+		$(imgId).html("");
+		$(nameId).html("");
+	}
+}

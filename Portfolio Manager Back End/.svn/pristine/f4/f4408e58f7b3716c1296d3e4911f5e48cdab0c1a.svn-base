@@ -1,0 +1,68 @@
+/* Reset */
+li{
+	list-style: none;
+}
+
+/* Common */
+body{
+	background: url(../img/background.jpg) no-repeat fixed;
+}
+.twenty{
+	height: 20px;
+}
+.forty{
+	height: 40px;
+}
+.sixty{
+	height: 60px;
+}
+.hide{
+	display: none;
+}
+.p_forty{
+	padding-left: 40px;
+}
+
+/* Index */
+.room_type{
+	margin-bottom: 20px;
+}
+
+/* header */
+.header{
+	height: 30px;
+}
+.header .news img{
+	width: 30px;
+	height:30px;
+}
+.header .news .news_list span{
+	float: right;
+}
+.header .user{
+	margin-top: -3px;
+	height: 53px;
+
+}
+.header .user img{
+	width: 30px;
+	height: 30px;
+}
+.header .room_select{
+		margin-left:50px;
+	}
+.header .logo{
+	margin-top: -10px;
+	margin-left: 100px;
+	width: 40px;
+	height: 40px;
+}
+/* copyright */
+.copyright{
+	color: #fff;
+	height: 200px;
+	text-align: center;
+	background: rgba(155,155,155,0.5);
+	-moz-opacity:0.50; /*֧�� FireFox �����*/
+	padding-top: 50px;
+}

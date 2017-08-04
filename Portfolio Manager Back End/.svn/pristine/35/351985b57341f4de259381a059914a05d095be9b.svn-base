@@ -1,0 +1,187 @@
+const SERVER_POINT = '/wk';
+const JOIN_ROOM = '/topic/joinRoom';
+const CHAT_ROOM = '/topic/chatRoom';
+const READY = '/topic/ready';
+const SAY = '/topic/say';
+const ROLE = '/topic/role';
+const EMPTY_HEADER = {};
+
+var stompClient = null;
+
+function connect() {
+    var socket = new SockJS(SERVER_POINT);
+    stompClient = Stomp.over(socket);
+    stompClient.connect(EMPTY_HEADER, connectCallback, errorCallback);
+}
+
+function disconnectSocket() {
+    stompClient.disconnect(onDisconnect);
+};
+
+var errorCallback = function(error) {
+    console.log('socket connect fail!');
+    console.log(error.headers.message);
+};
+
+var connectCallback = function(frame) {
+    console.log('socket connect success!');
+    stompClient.subscribe(JOIN_ROOM, joinOnMessage);
+    stompClient.subscribe(CHAT_ROOM, chatOnMessage);
+    stompClient.subscribe(READY, readyOnMessage);
+    stompClient.subscribe(SAY, sayOnMessage);
+    stompClient.subscribe(ROLE, roleOnMessage);
+};
+//****************************************************************
+function sendChangeMessage(roomId){
+    stompClient.send("/joinRoom", {}, JSON.stringify({
+     'source': user.id,
+     'destination': roomId,
+     'type': 1,
+     'data': "join room",
+     'message': ""
+    }));
+}
+
+var joinOnMessage = function(response){
+    var users = JSON.parse(response.body).destination;
+    users.forEach(function(item, index) {
+        if (item.id == user.id) {
+        	getRoom();
+            getPlayers();
+        }
+    });
+};
+//****************************************************************
+function sendChat(roomId){
+	var chatInfo = $('.chat-info').val();
+    stompClient.send("/chatRoom", {}, JSON.stringify({
+        'source': user.id,
+        'destination': roomId,
+        'type': 2,
+        'data': chatInfo,
+        'message': ""
+       }));
+}
+
+var chatOnMessage = function(response){
+    var users = JSON.parse(response.body).destination;
+    var source = JSON.parse(response.body).source;
+    var data = JSON.parse(response.body).data;
+    users.forEach(function(item, index) {
+        if (user.id == item.id && user.id != source.id) {
+            getPlayers();
+        	chat("leftBubble",source.portrait,data);
+        }
+    });
+};
+//****************************************************************
+function sendReadyMessage(roomId, locate, message) {
+    console.log('send ready message');
+    stompClient.send("/ready", {}, JSON.stringify({
+     'source': user.id,
+     'destination': roomId,
+     'type': 1,
+     'data': locate,
+     'message': message
+    }));
+};
+
+var readyOnMessage = function(response){
+    var users = JSON.parse(response.body).destination;
+    var source = JSON.parse(response.body).source;
+    var data = JSON.parse(response.body).data;
+    var message = JSON.parse(response.body).message;
+    users.forEach(function(item, index) {
+        if (user.id == item.id && user.id != source.id) {
+        	var locate = parseInt(data);
+        	if (message == "ready"){
+            	setReady(locate);
+        	}else{
+        		setUnReady(locate);
+        	}
+        }
+    });
+};
+//****************************************************************
+function sendSay(roomId, locate){
+    stompClient.send("/say", {}, JSON.stringify({
+        'source': user.id,
+        'destination': roomId,
+        'type': 1,
+        'data': locate,
+        'message': ""
+       }));
+}
+
+var sayOnMessage = function(response){
+    var users = JSON.parse(response.body).destination;
+    var source = JSON.parse(response.body).source;
+    var data = JSON.parse(response.body).data;
+    users.forEach(function(item, index) {
+        if (user.id == item.id && user.id != source.id) {
+        	var locate = parseInt(data)
+        	sayAction(locate);
+        }
+    });
+};
+//****************************************************************
+var roleOnMessage = function(response){
+    var users = JSON.parse(response.body).destination;
+    var data = JSON.parse(response.body).data;
+    users.forEach(function(item, index) {
+        if (item.id == user.id) {
+        	allocateRole(data);
+        }
+    });
+};
+//****************************************************************
+var leaveRoom = function() {
+    $.ajax({
+        url: '/rooms/1010/leave',
+        type: 'get',
+        data: {
+            "userId": user.id
+        },
+        async: false,
+        success: function(data, status){
+            if (data.code == 1){
+                console.log('user leave.');
+                sendChangeMessage(1010);
+            }else{
+                console.log('user leave fail.');
+                console(data.message);
+            }
+        }
+    });
+};
+
+function mapRole(index) {
+	switch (index) {
+	case 1:
+		return "村民";
+	case 2:
+		return "村民";
+	case 3:
+		return "村民";
+	case 4:
+		return "村民";
+	case 5:
+		return "狼人";
+	case 6:
+		return "狼人";
+	case 7:
+		return "狼人";
+	case 8:
+		return "狼人";
+	case 9:
+		return "预言家";
+	case 10:
+		return "女巫";
+	case 11:
+		return "猎人";
+	case 12:
+		return "白痴";
+	default:
+		return "";
+	}
+}
